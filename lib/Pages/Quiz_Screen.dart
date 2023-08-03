@@ -7,12 +7,12 @@ import 'package:quiz_app/Pages/result_screen.dart';
 
 class Quizscreen extends StatefulWidget {
   const Quizscreen({
-    required this.totaltime,
+    required this.totalTime,
     required this.question,
     Key? key,
   }) : super(key: key);
 
-  final int totaltime;
+  final int totalTime;
   final List<Question> question;
 
   @override
@@ -29,7 +29,7 @@ class _QuizscreenState extends State<Quizscreen> {
   @override
   void initState() {
     super.initState();
-    currenttime = widget.totaltime;
+    currenttime = widget.totalTime;
 
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
@@ -65,8 +65,9 @@ class _QuizscreenState extends State<Quizscreen> {
       context,
       MaterialPageRoute(
         builder: (context) => Result(
+          totalTime: widget.totalTime,
           score: score,
-          questions: widget.question,
+          question: widget.question,
         ),
       ),
     );
@@ -90,10 +91,10 @@ class _QuizscreenState extends State<Quizscreen> {
                 children: [
                   LinearProgressIndicator(
                     minHeight: 40,
-                    color: Colors.green,
-                    backgroundColor: Colors.teal.shade500,
+                    color: Colors.blueGrey,
+                    backgroundColor: Colors.blueGrey.shade900,
                     borderRadius: BorderRadius.circular(20),
-                    value: currenttime / widget.totaltime,
+                    value: currenttime / widget.totalTime,
                   ),
                   Center(
                     child: Text(
@@ -107,10 +108,10 @@ class _QuizscreenState extends State<Quizscreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 "Question",
                 style: TextStyle(
                   fontSize: 20,
@@ -118,12 +119,12 @@ class _QuizscreenState extends State<Quizscreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
                 currentquestion.question,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -133,8 +134,6 @@ class _QuizscreenState extends State<Quizscreen> {
                 child: ListView.builder(
                   itemCount: currentquestion.answers.length,
                   itemBuilder: (context, index) {
-                    // print(
-                    //     "Index: $index, Answers length: ${currentquestion.answers.length}");
                     final answer = currentquestion.answers[index];
                     return AnswerTile(
                       isselected: answer == _selectedAnswer,
@@ -155,21 +154,34 @@ class _QuizscreenState extends State<Quizscreen> {
                   },
                 ),
               ),
-              SizedBox(
-                height: 50,
+              // SizedBox(
+              //   height: 20,
+              // ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    child: Text("Back"),
+                    onPressed: () {
+                      if (_currentindex > 0) {
+                        setState(() {
+                          _currentindex--;
+                        });
+                      }
+                    },
+                  ),
+                  Spacer(),
+                  ElevatedButton(
+                    child: Text("Next"),
+                    onPressed: () {
+                      if (_currentindex < widget.question.length - 1) {
+                        setState(() {
+                          _currentindex++;
+                        });
+                      }
+                    },
+                  ),
+                ],
               ),
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    if (_currentindex > 0) {
-                      setState(() {
-                        _currentindex--;
-                      });
-                    }
-                  },
-                  child: Text("Back"),
-                ),
-              )
             ],
           ),
         ),

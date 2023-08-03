@@ -2,22 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/Component/ActionBotton.dart';
 import 'package:quiz_app/Component/decoration.dart';
 import 'package:quiz_app/Component/question.dart';
-import 'package:quiz_app/Pages/Homepage.dart';
+
 import 'package:quiz_app/Pages/Quiz_Screen.dart';
 
 class Result extends StatelessWidget {
-  const Result({super.key, required this.score, required this.questions});
+  const Result(
+      {super.key,
+      required this.score,
+      required this.question,
+      required this.totalTime});
 
   final int score;
 
-  final List<Question> questions;
+  final List<Question> question;
+  final int totalTime;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Hello"),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.orange.shade900,
+      ),
       body: SizedBox.expand(
         child: Gradientdecoration(
           child: Column(
@@ -25,7 +30,7 @@ class Result extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Result : $score / ${questions.length} ",
+                "Result : $score / ${question.length} ",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
@@ -42,8 +47,8 @@ class Result extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Quizscreen(
-                                  totaltime: 10,
-                                  question: questions,
+                                  totalTime: totalTime,
+                                  question: question,
                                 )));
                   })
             ],

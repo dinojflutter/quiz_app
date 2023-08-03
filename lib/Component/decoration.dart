@@ -13,8 +13,8 @@ class Gradientdecoration extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.teal.shade800,
-            Colors.teal.shade200,
+            Colors.orange.shade900,
+            Colors.orange.shade100,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
